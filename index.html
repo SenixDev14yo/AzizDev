@@ -2,53 +2,30 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Эпическая Регистрация</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Josefin+Sans&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Azizbek Palvanov - Блог</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="background"></div>
+  <main class="container">
+    <header>
+      <h1>Azizbek Palvanov</h1>
+      <p class="subtitle">9 класс, 30 школа</p>
+    </header>
 
-  <div class="form-box animated">
-    <form id="registerForm" class="form" novalidate>
-      <h2>Добро пожаловать!</h2>
-      <p class="subtitle">Создай аккаунт и присоединись к легенде 💫</p>
+    <section class="about">
+      <h2>Обо мне</h2>
+      <p>Я ученик 9 класса школы №30. Я люблю программировать и изучать языки.</p>
+    </section>
 
-      <div class="input-box">
-        <input type="text" id="username" required />
-        <label>Имя</label>
-        <span class="error"></span>
-      </div>
-      <div class="input-box">
-        <input type="email" id="email" required />
-        <label>Email</label>
-        <span class="error"></span>
-      </div>
-      <div class="input-box">
-        <input type="password" id="password" required />
-        <label>Пароль</label>
-        <span class="error"></span>
-      </div>
-      <div class="input-box">
-        <input type="password" id="confirmPassword" required />
-        <label>Повтори пароль</label>
-        <span class="error"></span>
-      </div>
-
-      <button type="submit" class="glow-btn">⚔️ Зарегистрироваться</button>
-      <p class="login">Есть аккаунт? <a href="#">Войти</a></p>
-    </form>
-  </div>
-
-  <!-- Модалка -->
-  <div class="modal" id="successModal">
-    <div class="modal-content">
-      <h3>🎉 Регистрация прошла успешно!</h3>
-      <p>Теперь ты с нами. Добро пожаловать в легенду!</p>
-      <button onclick="closeModal()">Закрыть</button>
-    </div>
-  </div>
+    <section class="contacts">
+      <h2>Контакты</h2>
+      <ul>
+        <li><a href="https://instagram.com/palvanov0220" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+        <li><a href="https://t.me/Snkz3" target="_blank" rel="noopener noreferrer">Telegram</a></li>
+      </ul>
+    </section>
+  </main>
 
   <script src="script.js"></script>
 </body>
