@@ -1,0 +1,287 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Josefin+Sans&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Josefin Sans', sans-serif;
+  height: 100vh;
+  background-color: #0d0d0d;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  color: #fff;
+}
+
+/* 🔥 АНИМИРОВАННЫЙ ФОН */
+.background {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, #44006b, #000000);
+  background-size: 400% 400%;
+  animation: animateBG 20s ease infinite;
+  filter: blur(100px);
+  z-index: -1;
+}
+
+@keyframes animateBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* 📦 ФОРМА */
+.form-box {
+  width: 400px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.3);
+  backdrop-filter: blur(15px);
+  animation: fadeInUp 1.5s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form h2 {
+  font-family: 'Cinzel', serif;
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 10px;
+  color: #ffbdf7;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 14px;
+  color: #aaa;
+  margin-bottom: 25px;
+}
+
+/* 🔠 ИНПУТЫ */
+.input-box {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.input-box input {
+  width: 100%;
+  padding: 12px 10px;
+  background: transparent;
+  border: 2px solid #6c00ff;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 16px;
+  outline: none;
+  transition: all 0.3s ease;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+.input-box label {
+  position: absolute;
+  top: 12px;
+  left: 15px;
+  color: #aaa;
+  font-size: 14px;
+  pointer-events: none;
+  transition: 0.3s ease;
+  background: #0d0d0d;
+  padding: 0 5px;
+}
+
+.input-box input:focus,
+.input-box input:valid {
+  border-color: #00ffff;
+  box-shadow: 0 0 10px #00ffff66;
+}
+
+.input-box input:focus ~ label,
+.input-box input:valid ~ label {
+  top: -10px;
+  left: 10px;
+  font-size: 12px;
+  color: #00ffff;
+}
+
+/* ❌ ОШИБКИ */
+.input-box.shake input {
+  animation: shake 0.3s;
+  border-color: #ff4d4d;
+  box-shadow: 0 0 10px #ff4d4d66;
+}
+
+.input-box .error {
+  color: #ff4d4d;
+  font-size: 12px;
+  margin-top: 3px;
+  display: block;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+
+/* 🔘 КНОПКА */
+.glow-btn {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(90deg, #00ffff, #ff00ff);
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 15px #00ffffaa;
+  transition: 0.3s ease;
+  font-family: 'Cinzel', serif;
+}
+
+.glow-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px #00ffffcc, 0 0 40px #ff00ffcc;
+}
+
+/* 🔗 ССЫЛКА */
+.login {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #ccc;
+}
+
+.login a {
+  color: #ff77ff;
+  font-weight: bold;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.login a:hover {
+  color: #00ffff;
+}
+
+/* ✅ МОДАЛКА */
+.modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 99;
+}
+
+.modal-content {
+  background: #111;
+  padding: 30px;
+  border: 2px solid #00ffff;
+  border-radius: 20px;
+  color: white;
+  text-align: center;
+  animation: fadeIn 0.4s ease;
+}
+
+.modal-content button {
+  margin-top: 20px;
+  padding: 10px 25px;
+  background: #00ffff;
+  border: none;
+  color: black;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.modal-content button:hover {
+  background: #00cccc;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+/* 🔥 Переходы для input */
+.input-box input {
+  transition: 
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+}
+
+.input-box input:focus {
+  transform: scale(1.03);
+}
+
+/* 🔠 Лейбл — плавное движение */
+.input-box label {
+  transition: 
+    top 0.3s ease,
+    left 0.3s ease,
+    font-size 0.3s ease,
+    color 0.3s ease;
+}
+
+/* 🎯 Hover-анимации кнопки */
+.glow-btn {
+  transition: 
+    transform 0.3s ease,
+    box-shadow 0.4s ease,
+    background 0.4s ease;
+}
+
+.glow-btn:active {
+  transform: scale(0.95);
+  box-shadow: 0 0 10px #00ffffaa inset;
+}
+
+/* 💫 Плавное появление всей формы */
+.form-box {
+  animation: fadeInUp 1.2s ease;
+  transition: box-shadow 0.4s ease;
+}
+
+.form-box:hover {
+  box-shadow: 0 0 35px rgba(0, 255, 255, 0.5);
+}
+
+/* 🔗 Переходы для ссылок */
+.login a {
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.login a:hover {
+  text-shadow: 0 0 8px #00ffffaa;
+}
+
+/* ✅ Модалка — плавный переход появления */
+.modal {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.modal.show {
+  opacity: 1;
+  pointer-events: all;
+}
