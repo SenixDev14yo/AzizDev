@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mini Chat</title>
+  <style>
+    body { font-family: Arial; padding: 20px; background: #f2f2f2; }
+    #messages { height: 300px; overflow-y: auto; background: #fff; padding: 10px; border-radius: 6px; }
+    #messages div { padding: 6px; margin-bottom: 6px; background: #e3e3e3; border-radius: 4px; }
+    #inputBox { margin-top: 10px; display: flex; gap: 10px; }
+    input { flex: 1; padding: 10px; }
+    button { padding: 10px 20px; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+  <h2>Мини-чат Firebase</h2>
+
+  <div id="messages"></div>
+
+  <div id="inputBox">
+    <input type="text" id="messageInput" placeholder="Введите сообщение..." />
+    <button id="sendBtn">Отправить</button>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    // ТВОЙ FIREBASE CONFIG
+    const firebaseConfig = {
+      apiKey: "AIzaSyByvxuYvcF2ArgwCgxZGEVgY0OjwaR5il0",
+      authDomain: "chati-28ee5.firebaseapp.com",
+      projectId: "chati-28ee5",
+      storageBucket: "chati-28ee5.firebasestorage.app",
+      messagingSenderId: "352814344654",
+      appId: "1:352814344654:web:e3a2fb68fc88292587a39f"
+    };
+
+    // Импорт модулей
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js";
+    import {
+      getFirestore, collection, addDoc,
+      serverTimestamp, onSnapshot, query, orderBy
+    } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore.js";
+
+    // Инициализация
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const messagesDiv = document.getElementById("messages");
+    const input = document.getElementById("messageInput");
+    const sendBtn = document.getElementById("sendBtn");
+
+    // Отправка сообщения
+    sendBtn.addEventListener("click", async () => {
+      const text = input.value.trim();
+      if (!text) return;
+
+      await addDoc(collection(db, "messages"), {
+        text: text,
+        timestamp: serverTimestamp()
+      });
+
+      input.value = "";
+    });
+
+    // Получение сообщений в реальном времени
+    const q = query(collection(db, "messages"), orderBy("timestamp"));
+    onSnapshot(q, (snapshot) => {
+      messagesDiv.innerHTML = "";
+      snapshot.forEach((doc) => {
+        const msg = document.createElement("div");
+        msg.textContent = doc.data().text;
+        messagesDiv.appendChild(msg);
+      });
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    });
+
+  </script>
+
+</body>
+</html>
