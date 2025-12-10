@@ -59,13 +59,12 @@
   </div>
 
   <script type="module">
+    // Firebase CDN
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, onSnapshot, query, orderBy } 
+      from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 
-    // Firebase
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
-    import { getFirestore, collection, addDoc, onSnapshot, orderBy, query } 
-      from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
-
-    // Твой конфиг
+    // Конфиг
     const firebaseConfig = {
       apiKey: "AIzaSyAk26HjYJp3j6CjIfiv38I7EHCegCCzA0o",
       authDomain: "mini-chat-aa84f.firebaseapp.com",
@@ -75,6 +74,7 @@
       appId: "1:111082652370:web:c25ca858fee6e18254e30b"
     };
 
+    // Инициализация Firebase
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
@@ -83,7 +83,7 @@
 
     const messagesDiv = document.getElementById('messages');
 
-    // Реальное время
+    // Слушаем новые сообщения
     onSnapshot(q, (snapshot) => {
       messagesDiv.innerHTML = "";
       snapshot.forEach((doc) => {
@@ -101,14 +101,16 @@
       const input = document.getElementById("messageInput");
       if (input.value.trim() === "") return;
 
-      await addDoc(messagesRef, {
-        text: input.value,
-        time: Date.now()
-      });
-
-      input.value = "";
+      try {
+        await addDoc(messagesRef, {
+          text: input.value,
+          time: Date.now()
+        });
+        input.value = "";
+      } catch(e) {
+        alert("Ошибка при отправке: " + e);
+      }
     }
-
   </script>
 
 </body>
