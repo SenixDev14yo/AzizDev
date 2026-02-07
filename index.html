@@ -1,22 +1,84 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>Sound</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tap to play</title>
+  <style>
+    html, body { height: 100%; margin: 0; }
+    body {
+      display: grid;
+      place-items: center;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: #0b0b10;
+      color: #fff;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .hint {
+      text-align: center;
+      padding: 24px;
+      max-width: 520px;
+      opacity: .9;
+    }
+    .hint b { font-size: 22px; display: block; margin-bottom: 10px; }
+    .status { margin-top: 12px; font-size: 14px; opacity: .75; }
+  </style>
 </head>
 <body>
+  <div class="hint">
+    <b>Нажми в любое место</b>
+    Музыка запустится (работает на телефоне и ПК)
+    <div class="status" id="status">Ожидаю клик/тап…</div>
+  </div>
 
-<h2>Нажми на экран</h2>
+  <!-- Поставь свой файл: soundtrack.mp3 рядом с index.html -->
+  <audio id="audio" preload="auto" loop playsinline>
+    <source src="soundtrack.mp3" type="audio/mpeg" />
+  </audio>
 
-<audio id="sound">
-  <source src="sound.mp3" type="audio/mpeg">
-</audio>
+  <script>
+    const audio = document.getElementById("audio");
+    const statusEl = document.getElementById("status");
 
-<script>
-  document.body.addEventListener('click', function () {
-    document.getElementById('sound').play();
-  }, { once: true });
-</script>
+    let started = false;
 
+    async function startAudio() {
+      if (started) return;
+      try {
+        // На iOS иногда нужно "разбудить" аудио контекст
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (AudioContext) {
+          const ctx = new AudioContext();
+          if (ctx.state === "suspended") await ctx.resume();
+          // ctx можно не хранить — он просто помогает пройти ограничения
+        }
+
+        await audio.play();
+        started = true;
+        statusEl.textContent = "Играет ✅ (тапни снова — пауза/плей)";
+      } catch (e) {
+        statusEl.textContent = "Не удалось запустить. Попробуй тапнуть ещё раз.";
+        console.log(e);
+      }
+    }
+
+    function toggle() {
+      if (!started) return startAudio();
+      if (audio.paused) {
+        audio.play();
+        statusEl.textContent = "Играет ✅ (тапни снова — пауза/плей)";
+      } else {
+        audio.pause();
+        statusEl.textContent = "Пауза ⏸ (тапни — продолжить)";
+      }
+    }
+
+    // Срабатывает на любой клик/тап по странице
+    document.addEventListener("pointerdown", toggle, { passive: true });
+
+    // На некоторых мобилках дополнительно помогает "click"
+    document.addEventListener("click", toggle, { passive: true });
+  </script>
 </body>
 </html>
